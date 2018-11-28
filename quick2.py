@@ -22,7 +22,7 @@ def randomize(size, spec = 'random'):
 
 
   elif(spec == 'uniform'):
-    arr = np.random.uniform(0, 100, size)
+    arr = np.random.uniform(0, size/2, size)
 
 
   elif(spec == 'notUniform'):
@@ -49,10 +49,11 @@ def randomize(size, spec = 'random'):
       arr.append(random.randint(0, 10000))
 
   elif(spec == 'lowCapMax2'):
-    if(random.uniform(0, 1) > 0.9):
-      arr.append(random.randint(100, size))
-    else:
-      arr.append(random.randint(0, 100))
+    for i in range(size):
+      if(random.uniform(0, 1) > 0.9):
+        arr.append(random.randint(int(size/4), size))
+      else:
+        arr.append(random.randint(0, int(size/4)))
 
 
 
@@ -180,7 +181,7 @@ def insertion_sort(alist):
 #print(arr)
 
 
-arr = [x for x in range(100, 1000, 100)]
+arr = [x for x in range(100, 1001, 100)]
 arr.append(10000)
 for i in range(100000, 1000001, 100000): arr.append(i)
 
@@ -319,55 +320,64 @@ for i in range(1000, 1000000, 1000):
 '''
 
 
-print("length\tuniform\tnotUniform\tlowCap\tunbalanced\n")
+print("length\tuniform\tnrandom\tlowCap\tunbalanced\n")
 #for i in range(1000, 1000000, 1000):
 for i in arr:
   print(str(i), end='\t')
   
   #uniform
-  data = randomize(i, 'uniform')
-  start_time = time.clock()
-  bucketSort(data)
-  end_time = time.clock()
-  print(end_time - start_time, end='\t')
+  total_time = 0
+  for j in range(5):
+    data = randomize(i, 'uniform')
+    start_time = time.time()
+    bucketSort(data)
+    end_time = time.time()
+    total_time += end_time - start_time
+  print(total_time/5, end='\t')
   
   #not uniform
-  data = randomize(i, 'notUniform')
-  start_time = time.clock()
-  bucketSort(data)
-  end_time = time.clock()
-  print(end_time - start_time, end='\t')
+
+  total_time = 0
+  for j in range(5):
+    data = randomize(i, 'random')
+    start_time = time.time()
+    bucketSort(data)
+    end_time = time.time()
+    total_time += end_time - start_time
+  print(total_time/5, end='\t')
+  
+
   '''  
   data = randomize(i, 'lowCap')
-  start_time = time.clock()
+  start_time = time.time()
   bucketSort(data)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\t')
   
   data = randomize(i, 'lowCap2')
-  start_time = time.clock()
+  start_time = time.time()
   bucketSort(data)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\t')
 
   data = randomize(i, 'lowCap3')
-  start_time = time.clock()
+  start_time = time.time()
   bucketSort(data)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\t')
 ' '''
   
   data = randomize(i, 'lowCap')
-  start_time = time.clock()
+  start_time = time.time()
   bucketSort(data)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\t')
   
   
   data = randomize(i, 'lowCapMax2')
-  start_time = time.clock()
+  start_time = time.time()
   bucketSort(data)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\n')
 
   '''
