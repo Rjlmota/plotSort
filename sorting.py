@@ -130,7 +130,7 @@ end_time = time.clock()
 print(end_time - start_time, end = '\n')
 '''  
 
-
+'''
 print("length\trandom\tsorted\treversed\n")
 
 
@@ -140,25 +140,27 @@ for i in arr:
   print(str(i), end = '\t')
   for j in range(5):
     data = randomize(i)
-    start_time = time.clock()
+    start_time = time.time()
     quicksort(data, 0, len(data)-1)
-    end_time = time.clock()
+    end_time = time.time()
     total_time += end_time - start_time  
   print(total_time/5, end = '\t')
 
   #Sorted
   data = randomize(i, 'sorted')
-  start_time = time.clock()
+  start_time = time.time()
   quicksort(data, 0, len(data)-1)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end = '\t')
   
   #Reverse Sorted
   data = randomize(i, 'reversed')
-  start_time = time.clock()
+  start_time = time.time()
   quicksort(data, 0, len(data)-1)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\n')
+'''
+
 
 '''
 #Terceira questão
@@ -168,7 +170,7 @@ arr = [x for x in range(100, 1000, 100)]
 arr.append(10000)
 for i in range(100000, 1000001, 100000): arr.append(i)
 
-
+'''
 print("length\trandom\tsorted\treversed\n")
 for i in arr:
   #True random
@@ -176,28 +178,27 @@ for i in arr:
   total_time = 0
   for j in range(5):
     data = randomize(i)
-    start_time = time.clock()
+    start_time = time.time()
     heapsort(data)
-    end_time = time.clock()
+    end_time = time.time()
     total_time += end_time - start_time
   print(total_time/5, end = '\t')
 
   #Sorted
   data = randomize(i, 'sorted')
-  start_time = time.clock()
+  start_time = time.time()
   heapsort(data)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end = '\t')
   
   #Reverse Sorted
   data = randomize(i, 'reversed')
-  start_time = time.clock()
+  start_time = time.time()
   heapsort(data)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\n')
 
 
-'''
 '''
 print("length\tuniform\tnotUniform\tlowCap\tlowCap2\n")
 for i in arr:

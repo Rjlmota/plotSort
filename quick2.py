@@ -22,7 +22,7 @@ def randomize(size, spec = 'random'):
 
 
   elif(spec == 'uniform'):
-    arr = np.linspace(0, size/4, size)
+    arr = np.random.uniform(0, 100, size)
 
 
   elif(spec == 'notUniform'):
@@ -46,7 +46,7 @@ def randomize(size, spec = 'random'):
 
   elif(spec == 'lowCapMax'):
     for i in range(size):
-      arr.append(random.randint(0, 100))
+      arr.append(random.randint(0, 10000))
 
   elif(spec == 'lowCapMax2'):
     if(random.uniform(0, 1) > 0.9):
@@ -128,27 +128,44 @@ def heapsort(arr):
 
 
 
-def bucketSort(alist):
-    largest = max(alist)
-    length = len(alist)
-    size = largest/length
- 
-    buckets = [[] for _ in range(length)]
-    for i in range(length):
-        j = int(alist[i]/size)
-        if j != length:
-            buckets[j].append(alist[i])
-        else:
-            buckets[length - 1].append(alist[i])
- 
-    for i in range(length):
-        insertion_sort(buckets[i])
- 
-    result = []
-    for i in range(length):
-        result = result + buckets[i]
- 
+
+def insertionSort(array):
+  for i in range(1, len(array)):
+    tmp = 0
+    tmp = array[i]
+    position = i
+    while position > 0 and array[position - 1] > tmp:
+      array[position] = array[position - 1]
+      position -= 1
+    array[position] = tmp
+
+def hashing(array):
+    m = array[0]
+    for i in range(1, len(array)):
+        if ( m < array[i] ):
+            m = array[i]
+    result = [m,int(math.sqrt( len(array)))]
     return result
+ 
+def re_hashing(i, code ):
+  return int(i/code[0]*(code[1]-1))
+
+
+def bucketSort(array):
+    code = hashing(array)
+    buckets = [list() for _ in range( code[1] )]
+    for i in array:
+        x = re_hashing( i, code )
+        buck = buckets[x]
+        buck.append( i )
+    for bucket in buckets:
+        insertionSort(bucket)
+         
+    ndx = 0
+    for b in range( len( buckets ) ):
+        for v in buckets[b]:
+            array[ndx] = v
+    ndx += 1
  
 def insertion_sort(alist):
     for i in range(1, len(alist)):
@@ -222,34 +239,34 @@ for i in arr:
 print("length\trandom\tsorted\treversed\n")
 
 
-for i in range(1000, 10000, 1000):
+for i in arr:
   #True random
   total_time = 0
   print(str(i), end = '\t')
   for j in range(5):
     data = randomize(i)
-    start_time = time.clock()
+    start_time = time.time()
     quicksort(data, 0, len(data)-1)
-    end_time = time.clock()
+    end_time = time.time()
     total_time += end_time - start_time  
   print(total_time/5, end = '\t')
 
   #Sorted
   data = randomize(i, 'sorted')
-  start_time = time.clock()
+  start_time = time.time()
   quicksort(data, 0, len(data)-1)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end = '\t')
   
   #Reverse Sorted
   data = randomize(i, 'reversed')
-  start_time = time.clock()
+  start_time = time.time()
   quicksort(data, 0, len(data)-1)
-  end_time = time.clock()
+  end_time = time.time()
   print(end_time - start_time, end='\n')
 
-
-
+'''
+'''
 for i in range(100000, 1000000, 100000):
   #True random
   print(str(i), end ='\t')
@@ -274,8 +291,8 @@ for i in range(100000, 1000000, 100000):
   print(end_time - start_time, end='\n')
 
 
-'''
-'''
+
+
 #Terceira questão
 print("random\tsorted\treversed\n")
 for i in range(1000, 1000000, 1000):
@@ -301,31 +318,32 @@ for i in range(1000, 1000000, 1000):
   print(end_time - start_time, end='\n')
 '''
 
-print("length\tuniform\tnotUniform\tlowCap\tlowCap2\tlowCap3\tlowCapMax\n")
+
+print("length\tuniform\tnotUniform\tlowCap\tunbalanced\n")
 #for i in range(1000, 1000000, 1000):
 for i in arr:
   print(str(i), end='\t')
-
+  
   #uniform
   data = randomize(i, 'uniform')
   start_time = time.clock()
   bucketSort(data)
   end_time = time.clock()
   print(end_time - start_time, end='\t')
-
+  
   #not uniform
   data = randomize(i, 'notUniform')
   start_time = time.clock()
   bucketSort(data)
   end_time = time.clock()
   print(end_time - start_time, end='\t')
-    
+  '''  
   data = randomize(i, 'lowCap')
   start_time = time.clock()
   bucketSort(data)
   end_time = time.clock()
   print(end_time - start_time, end='\t')
-  '''
+  
   data = randomize(i, 'lowCap2')
   start_time = time.clock()
   bucketSort(data)
@@ -337,15 +355,25 @@ for i in arr:
   bucketSort(data)
   end_time = time.clock()
   print(end_time - start_time, end='\t')
-  '''
-  data = randomize(i, 'lowCapMax')
+' '''
+  
+  data = randomize(i, 'lowCap')
   start_time = time.clock()
   bucketSort(data)
   end_time = time.clock()
   print(end_time - start_time, end='\t')
-
+  
+  
   data = randomize(i, 'lowCapMax2')
   start_time = time.clock()
   bucketSort(data)
   end_time = time.clock()
   print(end_time - start_time, end='\n')
+
+  '''
+
+arr = np.random.uniform(0, 1000, 100000)
+print(arr)
+bucketSort(arr)
+print(arr)
+'''
